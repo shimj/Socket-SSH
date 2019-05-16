@@ -14,7 +14,7 @@ def ssh_exec(ssh_session, command):
     lines = command.count("\n")
     ssh_session.sendline(command)
     ssh_session.prompt()
-    response = "\n".join(ssh_session.before.decode().split("\n")[lines+1:-1])
+    response = "\n".join(ssh_session.before.decode().split("\n")[lines+1:])
     return response
 
 def setup_socket_server(socket_host, socket_port):

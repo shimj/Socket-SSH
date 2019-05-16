@@ -52,20 +52,7 @@ if __name__ == '__main__':
         if cwd.startswith("/Volumes/hpcc"):
             command = "cd ~/"+"/".join(cwd.split("/")[3:])+" && "+command
         response = socket_request(socket_host, socket_port, list_2_json_binary(["exec", command]))
-        print(response)
+        print(response, end="")
     else:
         print("Invalid arguments.")
     
-
-
-
-
-# socket_server = "127.0.0.1"
-# socket_port = 65335
-# arguments = "LOGINju 350699"
-
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     s.connect((socket_server, socket_port))
-#     s.sendall(arguments.encode())
-#     data_received = s.recv(1024).decode()
-# print(data_received)
