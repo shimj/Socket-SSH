@@ -30,6 +30,12 @@ def socket_request(socket_host, socket_port, binary_data): ## one connection all
     if response=="\n": response = ""## actually is empty, I added this "\n"
     return response
 
+def is_forbidden(command):
+    forbidden_list = ["sz", "rz"]
+    for item in forbidden_list:
+        if command.startswith(item): return True
+    return False
+
 if __name__ == '__main__':
     socket_host = "127.0.0.1"
     socket_port = 65335
@@ -48,6 +54,8 @@ if __name__ == '__main__':
         print(response)
     elif arguments.startswith("--send"):
         command = arguments[7:]
+        if is_forbidden(command):
+            raise Exception("This command is not avaiable")
         cwd = os.getcwd()
         if cwd.startswith("/Volumes/hpcc"):
             command = "cd ~/"+"/".join(cwd.split("/")[3:])+" && "+command
