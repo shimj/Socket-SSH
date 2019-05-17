@@ -5,8 +5,8 @@
 * `nohup socket_ssh_server.py &` 开启socket服务器，等待接收密码。（没有nohup的话，关闭退出当前shell，如关闭terminal当前标签，就会被kill。详见[这个](https://www.maketecheasier.com/run-bash-commands-background-linux/)，还没细看）
 * `send_command.py --start` 发送密码给socket服务器，socket服务器收到密码就开始登录ssh。（这么做仅仅是因为服务器文件后台运行，没法让我输入密码）
 * `send_command.py --stop` 在发送密码前，或者建立ssh连接后，都可以杀死`socket_ssh_server.py`。
-* `socket_command.py --send [any command that will be sent to ssh server]`  执行代码，打印结果。
-* 目前的alias，我把`sss`对应后台启动socket服务器，`ss`对应`send_command.py`，`s`对应`send_command.py —send`。程序都没有映射到`/usr/local/bin/`下。
+* `socket_command.py send [any command that will be sent to ssh server]`  执行代码，打印结果。
+* 目前的alias，我把`sss`对应后台启动socket服务器，`ss`对应`send_command.py`，`s`对应`send_command.py --send`。程序都没有映射到`/usr/local/bin/`下。
 
 #### To do
 

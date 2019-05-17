@@ -49,6 +49,9 @@ if __name__ == '__main__':
             print(response)
         else:
             print("SSH already connected.")
+    elif arguments.startswith("--status"):
+        response = socket_request(socket_host, socket_port, list_2_json_binary(["status", ""]))
+        print(response)
     elif arguments.startswith("--stop"):
         response = socket_request(socket_host, socket_port, list_2_json_binary(["stop", ""]))
         print(response)
