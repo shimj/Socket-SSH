@@ -71,6 +71,12 @@ def ssh_login(host, username, socket_session):
             print("Invalid action")
     raise Exception("Wrong passwords or non-login action were provided too many times. Quit.")
 
+def is_forbidden(command):
+    forbidden_list = ["sz", "rz"]
+    for item in forbidden_list:
+        if command.startswith(item): return True
+    return False
+
 def start_responding(ssh_session, socket_session):
     while True:
         conn, addr = socket_session.accept()
@@ -82,9 +88,12 @@ def start_responding(ssh_session, socket_session):
             exit()
         elif action=="exec":
             command = content
-            remote_stdout = ssh_exec(ssh_session, command)
-            if not remote_stdout: remote_stdout = "\n" ## if empty, the response cannot be sent successfully
-            conn.sendall(remote_stdout.encode())
+            if is_forbidden(command):
+                conn.sendall("Forbidden command.".encode())
+            else:
+                remote_stdout = ssh_exec(ssh_session, command)
+                if not remote_stdout: remote_stdout = "\n" ## if empty, the response cannot be sent successfully
+                conn.sendall(remote_stdout.encode())
         elif action=="status":
             conn.sendall("Responding".encode())
         else:
