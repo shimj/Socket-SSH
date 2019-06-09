@@ -26,7 +26,7 @@ def list_2_json_binary(a_list):
 def socket_request(socket_host, socket_port, binary_data): ## one connection allows only one request
     socket_session = setup_socket_client(socket_host, socket_port)
     socket_session.sendall(binary_data)
-    response = socket_session.recv(1024).decode()
+    response = socket_session.recv(8192).decode()
     if response=="\n": response = ""## actually is empty, I added this "\n"
     return response
 

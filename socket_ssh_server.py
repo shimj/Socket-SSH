@@ -43,7 +43,7 @@ def ssh_login(host, username, socket_session):
     for i in range(10):
         print("wait for", i)
         conn, addr = socket_session.accept()
-        action, content = parse_json_binary(conn.recv(1024))
+        action, content = parse_json_binary(conn.recv(8192))
         print("recevied", i, action)
         if action=="start":
             print("Connecting to server...")
@@ -80,7 +80,7 @@ def is_forbidden(command):
 def start_responding(ssh_session, socket_session):
     while True:
         conn, addr = socket_session.accept()
-        action, content = parse_json_binary(conn.recv(1024))
+        action, content = parse_json_binary(conn.recv(8192))
         if action=="stop":
             conn.sendall("Disconnected to SSH server".encode())
             socket_session.close()

@@ -30,7 +30,7 @@ def setup_socket_server(socket_server, socket_port):
 def start_responding(ssh_session, socket_session):
     while True:
         conn, addr = socket_session.accept()
-        command = conn.recv(1024).decode()
+        command = conn.recv(8192).decode()
         if command=="logout":
             print("Disconnected.")
             exit()
